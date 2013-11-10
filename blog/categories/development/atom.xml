@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: development | Stu's Adventures in Code]]></title>
+  <link href="http://stuliston.github.io/blog/categories/development/atom.xml" rel="self"/>
+  <link href="http://stuliston.github.io/"/>
+  <updated>2013-11-10T20:12:21+11:00</updated>
+  <id>http://stuliston.github.io/</id>
+  <author>
+    <name><![CDATA[Stu Liston]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Essential SublimeText Packages]]></title>
+    <link href="http://stuliston.github.io/blog/2013/11/10/essential-sublimetext-packages/"/>
+    <updated>2013-11-10T19:41:00+11:00</updated>
+    <id>http://stuliston.github.io/blog/2013/11/10/essential-sublimetext-packages</id>
+    <content type="html"><![CDATA[<p><a href="http://www.sublimetext.com/">SublimeText</a> is an excellent text editor. It&rsquo;s quick, light, extendable and does just enough to make you super productive then gets out of your way.</p>
+
+<!-- more -->
+
+
+<p>Using <a href="https://sublime.wbond.net/">Package Manager</a>, it&rsquo;s very easy to add extensions to the base SublimeText install.</p>
+
+<p>For a great guide to getting SublimeText set up fully, check out Alex Maccaw&rsquo;s <a href="http://blog.alexmaccaw.com/sublime-text">blog post on the subject</a>. I&rsquo;ll deal with packages only.</p>
+
+<p>Without further ado, here is my list:</p>
+
+<ol>
+<li><p><a href="https://sublime.wbond.net/packages/All%20Autocomplete"><strong>All Autocomplete</strong></a>
+Sublime&rsquo;s autocomplete is wonderfully simple &ndash; by default it prompts you with any words in the current file. This package extends the default autocomplete to find matches in <em>all open files</em>.</p></li>
+<li><p><a href="https://sublime.wbond.net/packages/Git"><strong>Git</strong></a>
+You can push, pull, diff and much more as you might expect. I have to admit, though, I only really use this package to <em>Git Blame</em> a file (or a highlighted section of a file) when I need to check out <em>who</em> authored a certain block of code and <em>when</em>. Event for that narrow use-case I&rsquo;d recommend it.</p></li>
+<li><p><a href="https://sublime.wbond.net/packages/Modific"><strong>Modific</strong></a>
+Highlights lines changed since the last commit. Currently-supported are: Git, SVN, Bazaar and Mercurial. Very cool to be able to see where you&rsquo;ve deleted lines, added lines or modified existing ones with some simple iconography.</p></li>
+<li><p><a href="https://sublime.wbond.net/packages/Pretty%20JSON"><strong>PrettyJSON</strong></a>
+Simple, really: you select some JSON, hit <code>cmd + shift + p</code> (to bring up the God menu) and start typing &lsquo;pretty&rsquo; until you can select &lsquo;PrettyJSON&rsquo;. That&rsquo;ll format the JSON for you.</p></li>
+<li><p><a href="https://sublime.wbond.net/packages/RubyTest"><strong>RubyTest</strong></a>
+Like Git, I only really use one feature of this package. But it&rsquo;s a cracker. Assuming your spec and implementation files are organised in a predictable way, this give you a <code>cmd + .</code> shortcut that will jump you from the spec to the implementation and back again. If you&rsquo;re like me and like to TDD in two vertical columns, this is perfect.</p></li>
+<li><p><a href="https://sublime.wbond.net/packages/SideBarEnhancements"><strong>SideBarEnhancements</strong></a>
+Gives you enhanced file and folder options. Good for moving things around rapidly.</p></li>
+<li><p><a href="https://sublime.wbond.net/packages/Ruby%201.9%20Hash%20Converter"><strong>Ruby 1.9 Hash Converter</strong></a>
+This is is pretty controversial, but I thought I&rsquo;d add it in as it&rsquo;s a great trolling tool. Gives you a shortcut <code>cmd + option + h</code> to convert all Ruby hashes in the current file to the new 1.9 syntax.</p></li>
+</ol>
+
+
+<p>Please get in touch if you know any hidden gems that I&rsquo;m missing!</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ruby | Stu's Adventures in Code]]></title>
+  <link href="http://stuliston.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://stuliston.github.io/"/>
+  <updated>2013-11-10T20:12:21+11:00</updated>
+  <id>http://stuliston.github.io/</id>
+  <author>
+    <name><![CDATA[Stu Liston]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Introducing QueryAr]]></title>
+    <link href="http://stuliston.github.io/blog/2013/11/10/introducing-queryar/"/>
+    <updated>2013-11-10T19:59:00+11:00</updated>
+    <id>http://stuliston.github.io/blog/2013/11/10/introducing-queryar</id>
+    <content type="html"><![CDATA[<p>I&rsquo;d like to describe a small &ndash; and currently very focused &ndash; gem I&rsquo;ve been working on.</p>
+
+<!-- more -->
+
+
+<p><em>QueryAr gives you a concise DSL to confidently build filtered, scoped, paged and sorted ActiveRecord queries, based on a parameters hash.</em></p>
+
+<h3>Really quick usage example:</h3>
+
+<p>Given this ActiveRecord model:</p>
+
+<p><code>ruby
+class User
+  scope :older_than, -&gt;(years) { where("age &gt; ?", years) }
+end
+</code></p>
+
+<p>You can declare a query:</p>
+
+<p>```ruby
+class UserQuery
+  include QueryAr</p>
+
+<p>  defaults sort_by: &lsquo;last_name&rsquo;</p>
+
+<p>  queryable_by  :first_name, :last_name
+  scopeable_by  :older_than
+end
+```</p>
+
+<p>Then use it to query your model safely and succinctly from controller params:</p>
+
+<p>```ruby</p>
+
+<h1>GET /users</h1>
+
+<h1>params = { &ldquo;older_than&rdquo;=>30, &ldquo;first_name&rdquo;=>&ldquo;Stu&rdquo;, &ldquo;limit&rdquo;=>5, &ldquo;offset&rdquo;=>0 }</h1>
+
+<p>def index
+  query = UserQuery.new(params)
+  render json: query.all
+end
+```</p>
+
+<h3>Want to find out more?</h3>
+
+<p>Head over to the project&rsquo;s home on <a href="https://github.com/hooroo/query_ar">GitHub</a> for the latest information. You&rsquo;re very welcome to make suggestions, ask for features or get involved!</p>
+]]></content>
+  </entry>
+  
+</feed>

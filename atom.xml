@@ -4,7 +4,7 @@
   <title><![CDATA[Stu's Adventures in Code]]></title>
   <link href="http://stuliston.github.io/atom.xml" rel="self"/>
   <link href="http://stuliston.github.io/"/>
-  <updated>2013-11-10T17:09:15+11:00</updated>
+  <updated>2013-11-10T20:12:21+11:00</updated>
   <id>http://stuliston.github.io/</id>
   <author>
     <name><![CDATA[Stu Liston]]></name>
@@ -12,5 +12,114 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Introducing QueryAr]]></title>
+    <link href="http://stuliston.github.io/blog/2013/11/10/introducing-queryar/"/>
+    <updated>2013-11-10T19:59:00+11:00</updated>
+    <id>http://stuliston.github.io/blog/2013/11/10/introducing-queryar</id>
+    <content type="html"><![CDATA[<p>I&rsquo;d like to describe a small &ndash; and currently very focused &ndash; gem I&rsquo;ve been working on.</p>
+
+<!-- more -->
+
+
+<p><em>QueryAr gives you a concise DSL to confidently build filtered, scoped, paged and sorted ActiveRecord queries, based on a parameters hash.</em></p>
+
+<h3>Really quick usage example:</h3>
+
+<p>Given this ActiveRecord model:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span>
+</span><span class='line'>  <span class="n">scope</span> <span class="ss">:older_than</span><span class="p">,</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">years</span><span class="p">)</span> <span class="p">{</span> <span class="n">where</span><span class="p">(</span><span class="s2">&quot;age &gt; ?&quot;</span><span class="p">,</span> <span class="n">years</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can declare a query:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">UserQuery</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">QueryAr</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">defaults</span> <span class="n">sort_by</span><span class="p">:</span> <span class="s1">&#39;last_name&#39;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">queryable_by</span>  <span class="ss">:first_name</span><span class="p">,</span> <span class="ss">:last_name</span>
+</span><span class='line'>  <span class="n">scopeable_by</span>  <span class="ss">:older_than</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then use it to query your model safely and succinctly from controller params:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># GET /users</span>
+</span><span class='line'><span class="c1"># params = { &quot;older_than&quot;=&gt;30, &quot;first_name&quot;=&gt;&quot;Stu&quot;, &quot;limit&quot;=&gt;5, &quot;offset&quot;=&gt;0 }</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">index</span>
+</span><span class='line'>  <span class="n">query</span> <span class="o">=</span> <span class="no">UserQuery</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="n">query</span><span class="o">.</span><span class="n">all</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Want to find out more?</h3>
+
+<p>Head over to the project&rsquo;s home on <a href="https://github.com/hooroo/query_ar">GitHub</a> for the latest information. You&rsquo;re very welcome to make suggestions, ask for features or get involved!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Essential SublimeText Packages]]></title>
+    <link href="http://stuliston.github.io/blog/2013/11/10/essential-sublimetext-packages/"/>
+    <updated>2013-11-10T19:41:00+11:00</updated>
+    <id>http://stuliston.github.io/blog/2013/11/10/essential-sublimetext-packages</id>
+    <content type="html"><![CDATA[<p><a href="http://www.sublimetext.com/">SublimeText</a> is an excellent text editor. It&rsquo;s quick, light, extendable and does just enough to make you super productive then gets out of your way.</p>
+
+<!-- more -->
+
+
+<p>Using <a href="https://sublime.wbond.net/">Package Manager</a>, it&rsquo;s very easy to add extensions to the base SublimeText install.</p>
+
+<p>For a great guide to getting SublimeText set up fully, check out Alex Maccaw&rsquo;s <a href="http://blog.alexmaccaw.com/sublime-text">blog post on the subject</a>. I&rsquo;ll deal with packages only.</p>
+
+<p>Without further ado, here is my list:</p>
+
+<ol>
+<li><p><a href="https://sublime.wbond.net/packages/All%20Autocomplete"><strong>All Autocomplete</strong></a>
+Sublime&rsquo;s autocomplete is wonderfully simple &ndash; by default it prompts you with any words in the current file. This package extends the default autocomplete to find matches in <em>all open files</em>.</p></li>
+<li><p><a href="https://sublime.wbond.net/packages/Git"><strong>Git</strong></a>
+You can push, pull, diff and much more as you might expect. I have to admit, though, I only really use this package to <em>Git Blame</em> a file (or a highlighted section of a file) when I need to check out <em>who</em> authored a certain block of code and <em>when</em>. Event for that narrow use-case I&rsquo;d recommend it.</p></li>
+<li><p><a href="https://sublime.wbond.net/packages/Modific"><strong>Modific</strong></a>
+Highlights lines changed since the last commit. Currently-supported are: Git, SVN, Bazaar and Mercurial. Very cool to be able to see where you&rsquo;ve deleted lines, added lines or modified existing ones with some simple iconography.</p></li>
+<li><p><a href="https://sublime.wbond.net/packages/Pretty%20JSON"><strong>PrettyJSON</strong></a>
+Simple, really: you select some JSON, hit <code>cmd + shift + p</code> (to bring up the God menu) and start typing &lsquo;pretty&rsquo; until you can select &lsquo;PrettyJSON&rsquo;. That&rsquo;ll format the JSON for you.</p></li>
+<li><p><a href="https://sublime.wbond.net/packages/RubyTest"><strong>RubyTest</strong></a>
+Like Git, I only really use one feature of this package. But it&rsquo;s a cracker. Assuming your spec and implementation files are organised in a predictable way, this give you a <code>cmd + .</code> shortcut that will jump you from the spec to the implementation and back again. If you&rsquo;re like me and like to TDD in two vertical columns, this is perfect.</p></li>
+<li><p><a href="https://sublime.wbond.net/packages/SideBarEnhancements"><strong>SideBarEnhancements</strong></a>
+Gives you enhanced file and folder options. Good for moving things around rapidly.</p></li>
+<li><p><a href="https://sublime.wbond.net/packages/Ruby%201.9%20Hash%20Converter"><strong>Ruby 1.9 Hash Converter</strong></a>
+This is is pretty controversial, but I thought I&rsquo;d add it in as it&rsquo;s a great trolling tool. Gives you a shortcut <code>cmd + option + h</code> to convert all Ruby hashes in the current file to the new 1.9 syntax.</p></li>
+</ol>
+
+
+<p>Please get in touch if you know any hidden gems that I&rsquo;m missing!</p>
+]]></content>
+  </entry>
   
 </feed>
