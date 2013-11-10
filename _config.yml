@@ -2,8 +2,8 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://stuliston.github.io
-title: Stu's Adventures in Code
+url: http://blah.io
+title: blah.io
 subtitle: The blog of Stu Liston. Husband, pug-owner and rubyist.
 author: Stu Liston
 simple_search: http://google.com/search
@@ -90,7 +90,7 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name:
+disqus_short_name: stuliston
 disqus_show_comment_count: false
 
 # Google Analytics
