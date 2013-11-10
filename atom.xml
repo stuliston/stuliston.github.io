@@ -4,7 +4,7 @@
   <title><![CDATA[Stu's Adventures in Code]]></title>
   <link href="http://stuliston.github.io/atom.xml" rel="self"/>
   <link href="http://stuliston.github.io/"/>
-  <updated>2013-11-10T20:12:21+11:00</updated>
+  <updated>2013-11-10T20:43:13+11:00</updated>
   <id>http://stuliston.github.io/</id>
   <author>
     <name><![CDATA[Stu Liston]]></name>
@@ -25,7 +25,7 @@
 
 <p><em>QueryAr gives you a concise DSL to confidently build filtered, scoped, paged and sorted ActiveRecord queries, based on a parameters hash.</em></p>
 
-<h3>Really quick usage example:</h3>
+<h3>Really quick example:</h3>
 
 <p>Given this ActiveRecord model:</p>
 
