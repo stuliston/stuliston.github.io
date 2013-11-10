@@ -3,7 +3,6 @@ layout: post
 title: "Introducing QueryAr"
 date: 2013-11-10 19:59
 comments: true
-published: false
 categories:
 - Ruby
 - OSS
@@ -16,7 +15,7 @@ I'd like to describe a small - and currently very focused - gem I've been workin
 
 *QueryAr gives you a concise DSL to confidently build filtered, scoped, paged and sorted ActiveRecord queries, based on a parameters hash.*
 
-### Really quick usage example:
+### Really quick example:
 
 Given this ActiveRecord model:
 
