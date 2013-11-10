@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://stuliston.github.io/sitemap.xml 
+Sitemap: http://blah.io/sitemap.xml 

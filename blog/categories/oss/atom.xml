@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: OSS | Stu's Adventures in Code]]></title>
-  <link href="http://stuliston.github.io/blog/categories/oss/atom.xml" rel="self"/>
-  <link href="http://stuliston.github.io/"/>
-  <updated>2013-11-10T20:43:13+11:00</updated>
-  <id>http://stuliston.github.io/</id>
+  <title><![CDATA[Category: OSS | blah.io]]></title>
+  <link href="http://blah.io/blog/categories/oss/atom.xml" rel="self"/>
+  <link href="http://blah.io/"/>
+  <updated>2013-11-11T08:58:37+11:00</updated>
+  <id>http://blah.io/</id>
   <author>
     <name><![CDATA[Stu Liston]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Introducing QueryAr]]></title>
-    <link href="http://stuliston.github.io/blog/2013/11/10/introducing-queryar/"/>
+    <link href="http://blah.io/blog/2013/11/10/introducing-queryar/"/>
     <updated>2013-11-10T19:59:00+11:00</updated>
-    <id>http://stuliston.github.io/blog/2013/11/10/introducing-queryar</id>
+    <id>http://blah.io/blog/2013/11/10/introducing-queryar</id>
     <content type="html"><![CDATA[<p>I&rsquo;d like to describe a small &ndash; and currently very focused &ndash; gem I&rsquo;ve been working on.</p>
 
 <!-- more -->

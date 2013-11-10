@@ -1,23 +1,23 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://stuliston.github.io/blog/2013/11/10/essential-sublimetext-packages/</loc>
+        <loc>http://blah.io/blog/2013/11/10/essential-sublimetext-packages/</loc>
         <lastmod>2013-11-10T20:11:00+11:00</lastmod>
     </url>
     <url>
-        <loc>http://stuliston.github.io/blog/2013/11/10/introducing-queryar/</loc>
+        <loc>http://blah.io/blog/2013/11/10/introducing-queryar/</loc>
         <lastmod>2013-11-10T20:27:31+11:00</lastmod>
     </url>
     <url>
-        <loc>http://stuliston.github.io/blog/archives/</loc>
+        <loc>http://blah.io/blog/archives/</loc>
         <lastmod>2013-11-10T20:27:31+11:00</lastmod>
     </url>
     <url>
-        <loc>http://stuliston.github.io/</loc>
+        <loc>http://blah.io/</loc>
         <lastmod>2013-11-10T20:27:31+11:00</lastmod>
     </url>
     <url>
-        <loc>http://stuliston.github.io/robots.txt</loc>
+        <loc>http://blah.io/robots.txt</loc>
         <lastmod>2013-11-10T16:45:40+11:00</lastmod>
     </url>
 </urlset>
