@@ -63,7 +63,7 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.
 # ----------------------- #
 
 # Gravatar
-gravatar_email: stuart.liston@gmail.Comments
+gravatar_email: stuart.liston@gmail.com
 
 # Github repositories
 github_user: stuliston
