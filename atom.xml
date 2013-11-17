@@ -4,7 +4,7 @@
   <title><![CDATA[blah.io]]></title>
   <link href="http://blah.io/atom.xml" rel="self"/>
   <link href="http://blah.io/"/>
-  <updated>2013-11-17T13:24:10+11:00</updated>
+  <updated>2013-11-17T14:22:42+11:00</updated>
   <id>http://blah.io/</id>
   <author>
     <name><![CDATA[Stu Liston]]></name>
@@ -12,6 +12,69 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Git Protip: Filter by Introduced Diff]]></title>
+    <link href="http://blah.io/blog/2013/11/17/git-protip-filter-by-introduced-diff/"/>
+    <updated>2013-11-17T13:56:00+11:00</updated>
+    <id>http://blah.io/blog/2013/11/17/git-protip-filter-by-introduced-diff</id>
+    <content type="html"><![CDATA[<p>One of those Git commands you won&rsquo;t need regularly, but when you do, it&rsquo;ll save your day.</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git log -S</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What if you&rsquo;re tracking something down but you (or one of your colleagues) writes horrible commit messages?</p>
+
+<p>Git blaming is really good for investigating who touched specific lines last, but you often find that the <em>last</em> change on any
+specific line is not the one you&rsquo;re looking for. Maybe you want to find who introduced a method, but another colleague has formatted
+the line since then.</p>
+
+<p>Even tougher; perhaps what you&rsquo;re looking for is when a particular piece of code was <em>removed</em>.</p>
+
+<p>Situations like these are when <strong>Filter by Introduced Diff</strong> comes to your rescue.</p>
+
+<p>The command tells Git to look through the diff of each commit for a particular string. For example, if we wanted to find which commits modified
+anything that looked like the function name <code>Squeryable_by</code>, we would run this: (note there is no <code>=</code> between the <code>-S</code> and what you are searching for)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git log -Squeryable_by
+</span><span class='line'>
+</span><span class='line'>commit 7fa49b6c8d18583a7a8279c5a50c056cc16f2857
+</span><span class='line'>Author: Stuart Liston &lt;stuart.liston@gmail.com&gt;
+</span><span class='line'>Date:   Wed Nov 13 15:17:12 2013 +1100
+</span><span class='line'>
+</span><span class='line'>    Update README.md
+</span><span class='line'>
+</span><span class='line'>commit 33b210008469fcc37a73516f6246a85398c72c3f
+</span><span class='line'>Author: Stuart Liston &lt;stuart.liston@gmail.com&gt;
+</span><span class='line'>Date:   Sun Nov 10 00:09:28 2013 +1100
+</span><span class='line'>
+</span><span class='line'>    Starting to spec-out the module's DSL</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can see that I introduced a method on Nov 10 and then added some info to the README about the method (3 days later, YOLO!).</p>
+
+<p>Hopefully that&rsquo;ll get you out of jail one day.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Introducing QueryAr]]></title>
