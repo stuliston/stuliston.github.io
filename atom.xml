@@ -4,7 +4,7 @@
   <title><![CDATA[blah.io]]></title>
   <link href="http://blah.io/atom.xml" rel="self"/>
   <link href="http://blah.io/"/>
-  <updated>2013-11-17T14:22:42+11:00</updated>
+  <updated>2013-11-19T13:39:26+11:00</updated>
   <id>http://blah.io/</id>
   <author>
     <name><![CDATA[Stu Liston]]></name>
@@ -12,6 +12,125 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Silencing activerecord-postgis-adapter]]></title>
+    <link href="http://blah.io/blog/2013/11/19/silencing-activerecord-postgis-adapter/"/>
+    <updated>2013-11-19T13:26:00+11:00</updated>
+    <id>http://blah.io/blog/2013/11/19/silencing-activerecord-postgis-adapter</id>
+    <content type="html"><![CDATA[<p>A while back I spotted that the <code>activerecord-postgis-adapter</code> gem was making a fair bit of noise in  my rails console.</p>
+
+<p>I was seeing lots of queries like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>SELECT * FROM geometry_columns WHERE f_table_name='articles'
+</span><span class='line'>SELECT * FROM geometry_columns WHERE f_table_name='comments'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>From what I understand about the issue, which is discussed <a href="https://github.com/dazuma/activerecord-postgis-adapter/issues/36">here</a> and <a href="https://github.com/dazuma/activerecord-postgis-adapter/issues/71">here</a>, this is a meta query to discover whether a particular table has geospatial columns.</p>
+
+<p>I&rsquo;m plannning to reach out to the maintainer to see if I can help, but in the meantime I have a little patch to cut out the noise.</p>
+
+<p>It&rsquo;s <em>possible</em> that you&rsquo;ll gain a performance boost in the process, but I haven&rsquo;t benchmarked it yet.</p>
+
+<h3>The patch</h3>
+
+<p>The monkeypatch involves altering the implementation of the offending <code>spatial_column_info</code> method so that it optionally eager-loads specified geospatial-aware tables from a setting in your <code>database.yml</code>.</p>
+
+<p>If you <em>don&rsquo;t</em> provide any tables up-front in config, it&rsquo;ll fall back to discovering the details at runtime as it did before.</p>
+
+<figure class='code'><figcaption><span>config/database.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">development</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="c1">#</span>
+</span><span class='line'>  <span class="c1"># other config omitted…</span>
+</span><span class='line'>  <span class="c1">#</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">postgis_spacial_tables</span><span class="p-Indicator">:</span> <span class="s">&#39;articles,addresses,etc,etc&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>config/initializers/postgis_adapter_patch.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># encoding: utf-8</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">module</span> <span class="nn">ActiveRecord</span>
+</span><span class='line'>  <span class="k">module</span> <span class="nn">ConnectionAdapters</span>
+</span><span class='line'>    <span class="k">module</span> <span class="nn">PostGISAdapter</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="no">MainAdapter</span><span class="o">.</span><span class="n">class_eval</span> <span class="k">do</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">alias_method</span> <span class="ss">:original_spatial_column_info</span><span class="p">,</span> <span class="ss">:spatial_column_info</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">def</span> <span class="nf">spatial_column_info</span><span class="p">(</span><span class="n">table_name_</span><span class="p">)</span>
+</span><span class='line'>          <span class="k">if</span> <span class="n">_postgis_spacial_tables_configured?</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">_postgis_spacial_tables</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">table_name_</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">return</span> <span class="p">{}</span>
+</span><span class='line'>          <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="n">original_spatial_column_info</span><span class="p">(</span><span class="n">table_name_</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">def</span> <span class="nf">_postgis_spacial_tables_configured?</span>
+</span><span class='line'>          <span class="n">_postgis_spacial_tables</span><span class="o">.</span><span class="n">present?</span>
+</span><span class='line'>        <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">def</span> <span class="nf">_postgis_spacial_tables</span>
+</span><span class='line'>          <span class="vi">@_postgis_spacial_tables</span> <span class="o">||=</span> <span class="p">(</span><span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span><span class="o">.</span><span class="n">configurations</span><span class="o">[</span><span class="no">Rails</span><span class="o">.</span><span class="n">env</span><span class="o">][</span><span class="s2">&quot;postgis_spacial_tables&quot;</span><span class="o">]</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Caveats</h3>
+
+<ul>
+<li><p>I only load this initialiser (and therefore the patch) in <code>development</code> mode. Although you&rsquo;re free to use it how you like, be warned that it&rsquo;s untested in production.</p></li>
+<li><p>I use this against version <code>0.5.0</code> of the activerecord-postgis-adapter gem. As with a lot of monkeypatching, if the methods in the gem are renamed then this runs the risk of not working anymore</p></li>
+</ul>
+
+
+<h3>Happy patching!</h3>
+
+<p>Please make a note in the comments if you have some improvements in either the information above or the implementation I&rsquo;m suggesting.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Git Protip: Filter by Introduced Diff]]></title>
